@@ -7,3 +7,6 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+
+class SummaChoice(models.TextChoices):
+    pass 

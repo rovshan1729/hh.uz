@@ -6,7 +6,7 @@ class Company(BaseModel):
     title = models.CharField(max_length=255)
     logo = models.ImageField(upload_to='media/')
 
-    def _str__(self):
+    def __str__(self):
         return self.title
     
 class Region(BaseModel):
@@ -22,25 +22,28 @@ class District(BaseModel):
     def __str__(self):
         return self.title
     
-class Specializations(BaseModel):
+class Specialization(BaseModel):
     title = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title
     
-class SpecializationsType(BaseModel):
+class SpecializationType(BaseModel):
     title = models.CharField(max_length=255)
     specialization = models.ForeignKey(
-        Specializations, on_delete=models.CASCADE, related_name='specializations_type'
+        Specialization, on_delete=models.CASCADE, related_name='specialization_type'
     )
-
+    
     def __str__(self):
         return self.title
     
     
 class Experience(BaseModel):
     title = models.CharField(unique=True, max_length=255)
-    code = models.CharField(max_length=255)
+    code = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 class Vacancy(BaseModel):
     title = models.CharField(max_length=255)
@@ -52,6 +55,9 @@ class Vacancy(BaseModel):
 
     price_from = models.IntegerField(blank=True, null=True)
     price_to = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 
 class PartTimeJob(BaseModel):
@@ -112,3 +118,4 @@ class Schedule(BaseModel):
 
     def __str__(self):
         return self.title
+    
